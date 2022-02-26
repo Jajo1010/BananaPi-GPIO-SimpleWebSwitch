@@ -1,0 +1,27 @@
+{
+  "name": "ivan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "bootstrap": "^5.1.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "joi": "^17.6.0",
+    "monk": "^7.3.4",
+    "vue": "^3.2.31"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "standard": "^16.0.4"
+  }
+}
