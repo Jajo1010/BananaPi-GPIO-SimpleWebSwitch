@@ -1,5 +1,5 @@
 import express from 'express'
-import { turnOn } from '../models/turnCommand.js'
+import { turnOn } from '../commands/turnCommand.js'
 import cors from 'cors'
 const router = express.Router()
 
