@@ -109,18 +109,49 @@ To get a local copy up and running follow these simple example steps.
 ### <b>Install Armbian on BananaPi</b>
 <ol>
   <li>
-  Download Armbian image from[BPI-WiringPi](https://www.armbian.com/bananapi/)
+    Download Armbian image from <a href="https://www.armbian.com/bananapi/">Armbian's website</a>
+  </li>
+  <li>
+    Flash Armbian on SD Card using <a href="https://www.balena.io/etcher/">Etcher</a> or <a href="https://rufus.ie/">Rufus</a>
+  </li>
+  <li>
+    For better experience, connect BananaPi to some kind of screen via HDMI, or if not possible use the SSH connection option
+  </li>
+  <li>
+    Insert SD Card to BananaPi's SD Card slot
+  </li>
+  <li>
+    Armbian OS will now guide you trough the setup to set your enviroment after first boot
   </li>
 </ol>
 
 ### Prerequisites
-
-Install node
-* npm
+* Update OS
   ```sh
-  npm install npm@latest -g
+  apt update
+  apt upgrade
   ```
-
+* Install node
+   ```sh
+  sudo apt install nodejs
+  node –version
+  ```
+* Install npm
+  ```sh
+  sudo apt install npm
+  npm -v 
+  ```
+ * Download BPI-M1
+   ```sh
+    git clone https://github.com/BPI-SINOVOIP/BPI-WiringPi.git -b BPI_M1_M1Plus
+   ```
+ * Install BPI-M1
+   ```sh
+   cd BPI-WiringPi
+   chmod +x ./build
+   sudo ./build
+   ```
+fff
 ### Installation
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
