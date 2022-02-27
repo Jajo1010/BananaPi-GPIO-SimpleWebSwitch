@@ -97,7 +97,7 @@ To get a local copy up and running follow these simple example steps.
   </li>
 </ol>
 
-### Prerequisites
+### Install necessarily dependencies 
 * Update OS
   ```sh
   apt update
