@@ -1,16 +1,15 @@
 <div id="top"></div>
-
-<!-- PROJECT LOGO -->
+<!-- Template of README.mb inspired by https://github.com/othneildrew/Best-README-Template -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/Jajo1010/BananaPi-GPIO-SimpleWebSwitch">
     <img src="https://i.imgur.com/r5ZMXPT.png" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">BananaPi Simple Web Switch</h3>
 
   <p align="center">
-    Easy way to remotely turnOn on of many GPIO pins
+    Easy way to remotely turnOn device using GPIO pins
     <br />
     <br />
     <br />
@@ -18,8 +17,6 @@
 </div>
 
 
-
-<!-- TABLE OF CONTENTS -->
 ## Table of contents
   <ol>
     <li>
@@ -36,11 +33,9 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 
 
@@ -48,33 +43,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Concept behind this project is a remote control over BananaPi M1+'s GPIO pins trough web browser on local server which BananaPi hosts itself.
-This particular application focuses on a momentary switch behavior of a GPIO pin.<br />
+Concept behind this project is an idea of remotely controled BananaPi M1+'s GPIO pins trough web browser on a local server which BananaPi hosts itself using modern web technologies such as node, express vue and much more.
+This particular application focuses on a momentary switch behavior of button which can be applied to GPIO pin logic.<br />
 
 I personally used this as a remote PC power switch on an old motherboard that runs as a homemade NAS server
-
-App handles two kind of states :
-<ol>
-  <li>
-    Everything went allright :
-    <div align="center">
-      <img src="https://media.giphy.com/media/v96dbIGqk3K63fhpFy/giphy.gif">
-    </div>
-  </li>
-    <li>
-    Specific error occured :
-    <div align="center">
-      <img src="https://media.giphy.com/media/VkixHJYItGMTZGfzUA/giphy.gif">
-    </div>
-  </li>
-</ol>
-<br />
-<br />
-
-<b>Function of a momentary switch explained on a LED diode :</b>
-    <div align="center">
-      <img src="https://media.giphy.com/media/qdo2ajwEFnd7Rw3jda/giphy.gif">
-    </div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -151,25 +123,57 @@ To get a local copy up and running follow these simple example steps.
    chmod +x ./build
    sudo ./build
    ```
-fff
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Now let's install the app itself
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone git@github.com:Jajo1010/BananaPi-GPIO-SimpleWebSwitch.git
+   cd BananaPi-GPIO-SimpleWebSwitch
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Let's create a service which will automatically startup our app on boot
+   ```sh
+    cd /etc/systemd/system
+    sudo nano express-server.service
    ```
+4. Inside nano write these commands
+  ```sh
+  [Unit]
+  Description=start express js server which turns on gpio pins remotely
 
+  [Service]
+  Type=simple
+  ExecStart=/usr/bin/node /root/BananaPi-GPIO-SipleWebSwitch/server.js start
+  Restart=on-failure
+
+  [Install]
+  WantedBy=multi-user.target
+  
+  ```
+  Save and exit from nano
+  ```sh
+  CTRL+O
+  CTRL+X
+  ```
+5. Enable the service 
+  ```sh
+  sudo systemctl daemon-reload
+  sudo systemctl enable express-server
+  sudo systemctl start $SERVICE
+  ```
+ Test if the service is running
+ ```sh
+ sudo systemctl status express-server
+ ```
+ 6. Reboot
+  ```sh
+  reboot
+  ```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -177,29 +181,34 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+<b>Example of remotely turning on and off LED diode via phone:</b>
+    <div align="center">
+      <img src="https://media.giphy.com/media/qdo2ajwEFnd7Rw3jda/giphy.gif">
+    </div>
+    
+<b>App handles two kind of states </b> :
+<ol>
+  <li>
+    Everything went allright :
+    <div align="center">
+      <img src="https://media.giphy.com/media/v96dbIGqk3K63fhpFy/giphy.gif">
+    </div>
+  </li>
+    <li>
+    Specific error occured :
+    <div align="center">
+      <img src="https://media.giphy.com/media/VkixHJYItGMTZGfzUA/giphy.gif">
+    </div>
+  </li>
+</ol>
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+<b>If you'd like to change the behavior of the GPIO pin, just easily change the turnOn.sh file inside the BananaPi-GPIO-SimpleWebSwitch
+ directory to your needs </b> 
+ For more information about how to use GPIO Pins on BananaPi M1+, please refer to : </b>
+ * [BPI-WiringPi](https://github.com/BPI-SINOVOIP/BPI-WiringPi)
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- CONTRIBUTING -->
@@ -232,28 +241,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Ladislav Štefún - ladislav.stefunjr@gmail.com
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
